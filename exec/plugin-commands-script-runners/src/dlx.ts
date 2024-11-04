@@ -81,7 +81,7 @@ export async function handler (
     await add.handler({
       // Ideally the config reader should ignore these settings when the dlx command is executed.
       // This is a temporary solution until "@pnpm/config" is refactored.
-      ...omit(['workspaceDir', 'rootProjectManifest'], opts),
+      ...(omit(['workspaceDir', 'rootProjectManifest', 'symlink'] as Array<keyof DlxCommandOptions>, opts) as DlxCommandOptions),
       bin: path.join(cachedDir, 'node_modules/.bin'),
       dir: cachedDir,
       lockfileDir: cachedDir,

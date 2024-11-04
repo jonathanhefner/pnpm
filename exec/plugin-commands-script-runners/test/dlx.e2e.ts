@@ -160,6 +160,22 @@ test('dlx should work in shell mode', async () => {
   expect(fs.existsSync('foo')).toBeTruthy()
 })
 
+test('dlx should work when symlink=false', async () => {
+  prepareEmpty()
+
+  const rcfileOptions = { symlink: false }
+
+  await dlx.handler({
+    ...DEFAULT_OPTS,
+    ...rcfileOptions,
+    dir: path.resolve('project'),
+    storeDir: path.resolve('store'),
+    cacheDir: path.resolve('cache'),
+  }, ['@pnpm.e2e/touch-file-good-bin-name'])
+
+  expect(fs.existsSync('touch.txt')).toBeTruthy()
+})
+
 test('dlx should return a non-zero exit code when the underlying script fails', async () => {
   prepareEmpty()
 
